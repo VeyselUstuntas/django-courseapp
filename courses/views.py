@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -13,38 +13,41 @@ data = {
 db = {
     "courses" : [
         {
-            "title": "JavaScript Kursu",
-            "description": "JavaScript Kursu Açıklaması",
-            "imageUrl":"https://img-c.udemycdn.com/course/750x422/1662526_fc1c_3.jpg",
+            "title": "javaScript kursu",
+            "description": "javaScript kursu çıklaması",
+            "image":"3.jpg",
             "slug":"javascript-kursu",
-            "date": date(2024,7,19),
-            "is-active" : True,
+            "date": datetime.now,
+            "isActive" : True,
+            "isUpdated": True,
         },
         {
-            "title": "Python Kursu",
-            "description": "Python Kursu Açıklaması",
-            "imageUrl":"https://img-c.udemycdn.com/course/750x422/2463492_8344_3.jpg",
+            "title": "python kursu",
+            "description": "python kursu açıklaması",
+            "image":"2.jpg",
             "slug":"python-kursu",
-            "date": date(2024,5,5),
-            "is-active" : False,
+            "date": datetime.now,
+            "isActive" : False,
+            "isUpdated": False,
 
         },
         {
-            "title": "Web Geliştirme Kursu",
-            "description": "Web Geliştirme Kursu Açıklaması",
-            "imageUrl":"https://img-c.udemycdn.com/course/750x422/1258436_2dc3_4.jpg",
+            "title": "web geliştirme kursu",
+            "description": "Web geliştirme kursu açıklaması",
+            "image":"1.jpg",
             "slug":"web-gelistirme-kursu",
-            "date": date(2024,12,22),
-            "is-active" : True,
+            "date": datetime.now,
+            "isActive" : True,
+            "isUpdated": False
 
         }
     ],
 
     "categories":[
-        {"id":1, "name":"Programlama","slug":"programlama"},
-        {"id":2, "name":"Web Gelişirme","slug":"web-gelistirme"},
-        {"id":3, "name":"Mobil Uygulamalar","slug":"mobil-uygulamalar"},
-        {"id":4, "name":"Bulut Hizmetleri","slug":"bulut-hizmetleri"},
+        {"id":1, "name":"programlama","slug":"programlama"},
+        {"id":2, "name":"web gelişirme","slug":"web-gelistirme"},
+        {"id":3, "name":"mobil uygulamalar","slug":"mobil-uygulamalar"},
+        {"id":4, "name":"bulut hizmetleri","slug":"bulut-hizmetleri"},
     ]
 }
 

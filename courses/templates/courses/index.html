@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block title %}Kurslar{% endblock title %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "/courses/css/style.css " %}">
+{% endblock css_files %}
 
 {% block content %}
     <div class="container">
@@ -8,7 +13,7 @@
             <div class="col-3">
                 {% include "courses/partials/_categories.html" %}
             </div>
-            <div class="col-9 ">
+            <div class="col-9" >
 
                 {% include "courses/partials/_course-card.html" %}
 
