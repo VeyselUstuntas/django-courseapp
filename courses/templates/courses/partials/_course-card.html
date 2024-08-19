@@ -1,0 +1,19 @@
+{% for course in courses_list  %}
+    <div class="container mb-4">
+        <div class="row">
+            <div class="card">
+                <div class="row mb-4 mt-4">
+                    <div class="col-4">
+                        <img class="img-fluid rounded-start" src="{{course.imageUrl}}" alt="{{course.title}}">
+                    </div>
+                    <div class="col-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{course.title}}</h5>
+                            <p>{{course.description}}</p>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
