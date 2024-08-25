@@ -9,7 +9,7 @@
             </div>
             <div class="col-8 mt-4">
                 <div class="card-body">
-                    <a href="{% url "course_detail" course.id %}">
+                    <a href="{% url "course_detail" course.slug %}">
                         <h5 class="card-title">{{course.title | title}}</h5>
                     </a>
                     <p class="card-text">{{course.description | capfirst | truncatechars:20}}</p>

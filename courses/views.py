@@ -63,13 +63,8 @@ def index(request):
     })
 
 
-def courseDetail(request,course_id):
-    # try:
-    #     course = Course.objects.get(pk=course_id) 
-    # except:
-    #     raise Http404
-
-    course = get_object_or_404(Course,pk=course_id)
+def courseDetail(request,slug):
+    course = get_object_or_404(Course,slug=slug)
     context = {
         "course":course,
     }
