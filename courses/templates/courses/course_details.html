@@ -5,18 +5,21 @@
     <link rel="stylesheet" href="{% static "/courses/css/style.css" %}">
 {% endblock css_files %}
 
-{% block title %}Kurslar{% endblock title %}
+{% block title %}{{course.title}} Detail {% endblock title %}
 
 {% block content %}
     <div class="container">
         <div class="row mt-4">
             <div class="col-3">
-                {% include "courses/partials/_categories.html" %}
+                <img class="rounded img-fluid" src="{% static "/courses/img/"|add:course.imageUrl %}" alt="{{course.title}}">
             </div>
-            <div class="col-9" >
-
-                {% include "courses/partials/_course-card.html" %}
-
+            <div class="col-9">
+                <h1 class="h3">
+                    {{course.title}}
+                </h1>
+                <p>
+                    {{course.description}}
+                </p>
             </div>
         </div>
     </div>

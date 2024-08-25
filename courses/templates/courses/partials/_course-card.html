@@ -1,33 +1,28 @@
 {% load static %}
 
+{% for course in courses  %}
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-4">
+                <img class="img-fluid rounded-start" src="{% static 'courses/img/'|add:course.imageUrl %}" alt="{{course.title}}">
 
-{% for course in courses_list  %}
-    {% if course.isActive == True %}
-        <div class="card mb-3">
-            <div class="row">
-                <div class="col-4">
-                    <img class="img-fluid rounded-start" src="{% static 'courses/img/'|add:course.image %}" alt="{{course.title}}">
-
-                </div>
-                <div class="col-8 mt-4">
-                    <div class="card-body">
+            </div>
+            <div class="col-8 mt-4">
+                <div class="card-body">
+                    <a href="{% url "course_detail" course.id %}">
                         <h5 class="card-title">{{course.title | title}}</h5>
-                        <p class="card-text">{{course.description | capfirst | truncatechars:20}}</p>
-
-
-                        {% if course.isUpdated == True %}
-                            <span class="badge bg-success">Güncelendi</span>
-                            {% else%}
-                            <span class="badge bg-warning">Güncel Değil</span>
-                        {% endif %}
-                            <br>
-                        <span>{{course.date | date:"D d M Y" }}</span>
-                        <span>{{course.date | time:"H:i"}}</span>
-                    </div>
+                    </a>
+                    <p class="card-text">{{course.description | capfirst | truncatechars:20}}</p>
+                    {% comment %} 
+                    {% if course.isUpdated == True %}
+                        <span class="badge bg-success">Güncelendi</span>
+                        {% else%}
+                        <span class="badge bg-warning">Güncel Değil</span>
+                    {% endif %}
+                        <br> {% endcomment %}
+                    <span>{{course.date | date:"SHORT_DATE_FORMAT" }}</span>
                 </div>
             </div>
         </div>
-    {% endif %}
-
-
+    </div>
 {% endfor %}
