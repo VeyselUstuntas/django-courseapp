@@ -1,5 +1,4 @@
 from django.urls import path
-#from courses.views import home, kurslar   ya da
 from courses import views
 
 urlpatterns = [
