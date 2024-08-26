@@ -12,46 +12,7 @@ data = {
     "devops":"Azure Bulut Bilişim Hizmetleri",
 }
 
-db = {
-    "courses" : [
-        {
-            "title": "javaScript kursu",
-            "description": "javaScript kursu çıklaması",
-            "image":"3.jpg",
-            "slug":"javascript-kursu",
-            "date": datetime.now,
-            "isActive" : True,
-            "isUpdated": True,
-        },
-        {
-            "title": "python kursu",
-            "description": "python kursu açıklaması",
-            "image":"2.jpg",
-            "slug":"python-kursu",
-            "date": datetime.now,
-            "isActive" : False,
-            "isUpdated": False,
 
-        },
-        {
-            "title": "web geliştirme kursu",
-            "description": "Web geliştirme kursu açıklaması",
-            "image":"1.jpg",
-            "slug":"web-gelistirme-kursu",
-            "date": datetime.now,
-            "isActive" : True,
-            "isUpdated": False
-
-        }
-    ],
-
-    "categories":[
-        {"id":1, "name":"programlama","slug":"programlama"},
-        {"id":2, "name":"web gelişirme","slug":"web-gelistirme"},
-        {"id":3, "name":"mobil uygulamalar","slug":"mobil-uygulamalar"},
-        {"id":4, "name":"bulut hizmetleri","slug":"bulut-hizmetleri"},
-    ]
-}
 
 def index(request):
     courses = Course.objects.filter(isActive=1)
