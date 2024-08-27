@@ -1,21 +1,29 @@
 {% load static %}
 
-{% for course in courses  %}
-    <div class="card mb-3">
-        <div class="row">
-            <div class="col-4">
-                <img class="img-fluid rounded-start" src="{% static 'courses/img/'|add:course.imageUrl %}" alt="{{course.title}}">
+{% if courses|length == 0 %}
+    <div class="alert alert-warning">
+        No courses registered in this category
+    </div>
+{% else %}
+    {% for course in courses  %}
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-4">
+                    <img class="img-fluid rounded-start" src="{% static 'courses/img/'|add:course.imageUrl %}" alt="{{course.title}}">
 
-            </div>
-            <div class="col-8 mt-4">
-                <div class="card-body">
-                    <a href="{% url "course_detail" course.slug %}">
-                        <h5 class="card-title">{{course.title | title}}</h5>
-                    </a>
-                    <p class="card-text">{{course.description | capfirst | truncatechars:20}}</p>
-                    <span>{{course.date | date:"SHORT_DATE_FORMAT" }}</span>
+                </div>
+                <div class="col-8 mt-4">
+                    <div class="card-body">
+                        <a href="{% url "course_detail" course.slug %}">
+                            <h5 class="card-title">{{course.title | title}}</h5>
+                        </a>
+                        <p class="card-text">{{course.description | capfirst | truncatechars:20}}</p>
+                        <span>{{course.date | date:"SHORT_DATE_FORMAT" }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-{% endfor %}
+    {% endfor %}
+{% endif %}
+
+
