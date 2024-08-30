@@ -18,7 +18,7 @@ class Course(models.Model):
     date = models.DateField(auto_now_add=True)
     isActive = models.BooleanField()
     slug = models.SlugField(null=False,default="",unique=True, db_index=True,blank=True,editable=False)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE,default=1, related_name="kurslar")
+    categories = models.ManyToManyField(Category,related_name="kurslar",)
    
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
