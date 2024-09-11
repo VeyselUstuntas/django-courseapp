@@ -3,11 +3,11 @@ from courses.models import Course,Category
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ("title","date","isActive","slug","category_list",)
+    list_display = ("title","date","isActive","isHome","slug","category_list",)
     list_display_links = ("title","slug",)
     readonly_fields = ("slug",)
-    list_filter = ("title","isActive","categories",)
-    list_editable = ("isActive",)
+    list_filter = ("title","isActive","isHome","categories",)
+    list_editable = ("isActive","isHome")
     search_fields = ("title","description","category")
 
 
