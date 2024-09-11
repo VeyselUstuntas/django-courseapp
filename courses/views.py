@@ -59,10 +59,17 @@ def getCoursesByCategoryName(request,slug):
 
 
 def createCourse(request):
-    if request.method == "POSt":
-        pass
-    else:
-        return render(request,"courses/create-course.html")
+    if request.method == "POST":
+        course_title = request.POST['title']
+        course_desc = request.POST["description"]
+        course_img = request.POST["imageUrl"]
+        isActive = True if request.POST.get("isActive") == "on" else False
+        isHome = True if request.POST.get("isHome") == "on" else False
 
+        if course_title == "" or course_desc == "" or course_img == "":
+            return render(request, "courses/create-course.html",{"error":True,"title":course_title, "desc":course_desc, "img":course_img})
 
-
+        new_course = Course(title=course_title, description = course_desc, imageUrl = course_img,isActive = isActive, isHome=isHome)
+        new_course.save()
+        return redirect("courses")
+    return render(request,"courses/create-course.html")
