@@ -25,7 +25,7 @@ def search(request):
 
     return render(request, "courses/search.html",{
         "courses":courses,
-        "categories":categories
+        "categories":categories,
     })
     
 
@@ -59,7 +59,10 @@ def getCoursesByCategoryName(request,slug):
 
 
 def createCourse(request):
-    return HttpResponse("kurs oluşturma ekranı")
+    if request.method == "POSt":
+        pass
+    else:
+        return render(request,"courses/create-course.html")
 
 
 
