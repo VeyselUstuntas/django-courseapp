@@ -8,9 +8,12 @@
             </li>
 
             <li class="nav-item">
-                <a href="{% url "create_course" %}" class="nav-link">Create Course</a>
+                <a href="{% url "create_course" %}" class="nav-link">Admin Create Course</a>
             </li>
 
+            <li>
+                <a href="{% url "course_list" %}" class="nav-link">Admin Course List</a>
+            </li>
         </ul> 
         
         <form action="{% url "search" %}" method="GET" class="d-flex">

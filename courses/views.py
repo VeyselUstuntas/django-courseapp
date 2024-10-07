@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.core.paginator import Paginator
 
-from courses.forms import CourseCreateForm
+from courses.forms import CourseCreateForm, CourseEditForm
 from courses.models import Category, Course
 
 def index(request):
@@ -70,3 +70,23 @@ def createCourse(request):
     else:
         form = CourseCreateForm()
     return render(request,"courses/create-course.html",{"form":form})
+
+
+def courseList(request):
+    courses = Course.objects.all()
+    return render(request,"courses/course-list.html",{
+        "courses":courses,
+    })
+
+def courseEdit(request,id):
+    course = Course.objects.get(id=id)
+    if request.method == "POST":
+        form = CourseEditForm(request.POST, instance=course)
+
+        if form.is_valid():
+            form.save()
+            return redirect("course_list")
+
+    else:
+        form = CourseEditForm(instance=course)
+    return render(request,"courses/edit-course.html",{"course":course,"form":form})

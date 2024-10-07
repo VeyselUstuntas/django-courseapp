@@ -45,3 +45,31 @@ class CourseCreateForm(forms.ModelForm):
             "imageUrl":{"required":"Kurs Görselini Seçiniz!"}
 
         }
+
+class CourseEditForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = "__all__"
+        labels = {
+            "title":"Kurs Başlığı:",
+            "description":"Kurs Açıklaması:",
+            "imageUrl":"Kurs Görseli:",
+            "isActive":"Aktif Mi?",
+            "isHome":"Ana Sayfada Mı?",
+            "categories":"Kurs Katgorisi"
+        }
+        widgets = {
+            "title":forms.TextInput(attrs={"class":"form-control"}),
+            "description":forms.Textarea(attrs={"class":"form-control"}),
+            "imageUrl":forms.TextInput(attrs={"class":"form-control"}),
+            "isActive":forms.CheckboxInput(),
+            "isHome":forms.CheckboxInput(),
+            "categories":forms.SelectMultiple(attrs={"class":"form-control"}),
+        }
+        error_messages = {
+            "title":{"required":"Kurs Başlığını Giriniz!", "max_length":"Geçtin sınırı"},
+            "description":{"required":"Kurs Açıklamasını Giriniz!"},
+            "imageUrl":{"required":"Kurs Görselini Seçiniz!"}
+
+        }
+
