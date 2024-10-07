@@ -16,12 +16,13 @@
             <div class="col-9" >
                 {% if courses|length == 0 %}
                     <div class="alert alert-warning">
-                        No courses registered in this category
+                        No category registered in this course
                     </div>
+                {% else %}
+                    {% for course in courses  %}
+                        {% include "courses/partials/_course-card.html" %}
+                    {% endfor %}
                 {% endif %}
-                {% for course in courses  %}
-                    {% include "courses/partials/_course-card.html" %}
-                {% endfor %}
             </div>
         </div>
     </div>

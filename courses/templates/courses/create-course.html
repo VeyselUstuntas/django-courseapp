@@ -11,42 +11,18 @@
     <div class="container">
         <div class="row mt-4">
             <div class="col-12">
-                {% if error %}
-                    <div class="alert alert-danger">
-                        Bilgileri Eksiksiz Girin!
-                    </div>
-                {% endif %}
-                <form action="{% url "create_course" %}" method="POST">
+                <form action="{% url "create_course" %}" method="POST" novalidate>
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label" for="title">Title</label>
-                        <input class="form-control" type="text" name="title" value={{title}}>
-                    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="description">Description</label>
-                        <textarea class="form-control" name="description" value={{desc}}></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="imageUrl">Image URL</label>
-                        <input class="form-control" type="text" name="imageUrl" value="{{img}}">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="slug">Slug</label>
-                        <input class="form-control" type="text" name="slug">
-                    </div>
-
-                    <div class="form-check mb-3">
-                        <input type="checkbox" name="isActive" class="form-check-input">
-                        <label for="isActive" class="form-check-label">Is Active</label>
-                    </div>
-
-                    <div class="form-check mb-3">
-                        <input type="checkbox" name="isHome" class="form-check-input">
-                        <label for="isHome" class="form-check-label">Is Home</label>
-                    </div>
+                    {% for field in form %}
+                        <div class="mb-4 {% if field.errors %}invalid{% endif %}">
+                            {% if field.errors %}
+                                <div class="alert alert-danger">{{field.errors}}</div>
+                            {% endif %}
+                            <label class = "form-label" for="{{field.id_for_label}}">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                    {% endfor %}
 
                     <button class="btn btn-info btn-sm" type="submit">Save</button>
 

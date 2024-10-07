@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.core.paginator import Paginator
 
+from courses.forms import CourseCreateForm
 from courses.models import Category, Course
 
 def index(request):
@@ -41,7 +42,7 @@ def getCoursesByCategoryName(request,slug):
     courses = Course.objects.filter(isActive=True, categories__slug = slug).order_by("date")
     category = Category.objects.all()
 
-    paginator = Paginator(courses,3) # her sayfada 1 tane kurs gözüksün
+    paginator = Paginator(courses,3) # her sayfada 3 tane kurs gözüksün
     page = request.GET.get('page',1)
 
     page_obj = paginator.page(page)
@@ -49,6 +50,7 @@ def getCoursesByCategoryName(request,slug):
     print(paginator.page_range)
     print("bu kadar sayfaya sığdı ", paginator.num_pages)# kaç sayfaya sığdı
     print("kaç tane kurs kaydı var ", paginator.count) #kaç sayfa olduğunu söyler
+    print(page_obj.number)
     
     
     return render(request, "courses/list.html",{
@@ -60,16 +62,11 @@ def getCoursesByCategoryName(request,slug):
 
 def createCourse(request):
     if request.method == "POST":
-        course_title = request.POST['title']
-        course_desc = request.POST["description"]
-        course_img = request.POST["imageUrl"]
-        isActive = True if request.POST.get("isActive") == "on" else False
-        isHome = True if request.POST.get("isHome") == "on" else False
+        form = CourseCreateForm(request.POST)
 
-        if course_title == "" or course_desc == "" or course_img == "":
-            return render(request, "courses/create-course.html",{"error":True,"title":course_title, "desc":course_desc, "img":course_img})
-
-        new_course = Course(title=course_title, description = course_desc, imageUrl = course_img,isActive = isActive, isHome=isHome)
-        new_course.save()
-        return redirect("courses")
-    return render(request,"courses/create-course.html")
+        if form.is_valid():
+            form.save()
+            return redirect("courses")
+    else:
+        form = CourseCreateForm()
+    return render(request,"courses/create-course.html",{"form":form})

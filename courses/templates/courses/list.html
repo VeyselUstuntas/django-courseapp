@@ -18,11 +18,12 @@
                     <div class="alert alert-warning">
                         No courses registered in this category
                     </div>
-                {% endif %}
 
-                {% for course in page_obj.object_list  %}
-                    {% include "courses/partials/_course-card.html" %}
-                {% endfor %}
+                {% else %}
+                    {% for course in page_obj.object_list  %}
+                        {% include "courses/partials/_course-card.html" %}
+                    {% endfor %}
+                {% endif %}
 
                 {% include "courses/partials/_pagination.html" %}
 

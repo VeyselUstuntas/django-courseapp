@@ -19,7 +19,7 @@ class Course(models.Model):
     isActive = models.BooleanField(default=False)
     isHome = models.BooleanField(default=False)
     slug = models.SlugField(null=False,default="",unique=True, db_index=True,blank=True,editable=False)
-    categories = models.ManyToManyField(Category,related_name="kurslar",)
+    categories = models.ManyToManyField(Category,related_name="kurslar",blank=True)
    
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
