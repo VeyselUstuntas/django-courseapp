@@ -23,7 +23,7 @@
                             <div class="input-group">
                                 {% comment %} {{field.label}} {% endcomment %}
                                 {{field}}
-                                <button class="btn btn-outline-secondary" type="submit">Upload</button>
+                                <button class="btn btn-outline-secondary {% if field.errors %}btn-outline-danger{% endif %}" type="submit">Upload</button>
                             </div>
                         </div>
                     {% endfor %}

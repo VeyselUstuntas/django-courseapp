@@ -23,7 +23,7 @@
                     <tbody>
                         {% for course in courses %}
                         <tr>
-                            <td><img class = "img-fluid" src="{% static "courses/img/"|add:course.imageUrl %}" alt="{{course.slug}}"></td>
+                            <td><img class = "img-fluid" src="{{course.image.url}}" alt="{{course.slug}}"></td>
                             <td>{{course.title}}</td>
                             <td>{{course.slug}}</td>
                             <td class="align-middle">

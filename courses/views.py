@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 
 from courses.forms import CourseCreateForm, CourseEditForm, UploadForm
-from courses.models import Category, Course
+from courses.models import Category, Course, UploadModel
 
 import random
 
@@ -64,7 +64,7 @@ def getCoursesByCategoryName(request,slug):
 
 def createCourse(request):
     if request.method == "POST":
-        form = CourseCreateForm(request.POST)
+        form = CourseCreateForm(request.POST,request.FILES)
 
         if form.is_valid():
             form.save()
@@ -83,7 +83,7 @@ def courseList(request):
 def courseEdit(request,id):
     course = Course.objects.get(id=id)
     if request.method == "POST":
-        form = CourseEditForm(request.POST, instance=course)
+        form = CourseEditForm(request.POST,request.FILES, instance=course)
 
         if form.is_valid():
             form.save()
@@ -109,17 +109,10 @@ def upload(request):
         form = UploadForm(request.POST,request.FILES)
 
         if form.is_valid():
-            uploaded_image = request.FILES["image"]
-            handle_uploaded_files(uploaded_image)
+            model = UploadModel(image= request.FILES["image"])
+            print(model.image)
+            model.save()
             return render(request,"courses/success.html")
     else:
         form = UploadForm()
     return render(request, "courses/upload.html",{"form":form})
-
-
-def handle_uploaded_files(file):
-    number = random.randint(1,99999)
-    file_name = file.name.replace(".",f"_{number}.")
-    with open("temp/" + file_name, "wb+") as destination:
-        for chunk in file.chunks():
-            destination.write(chunk)
