@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.core.paginator import Paginator
 
-from courses.forms import CourseCreateForm, CourseEditForm
+from courses.forms import CourseCreateForm, CourseEditForm, UploadForm
 from courses.models import Category, Course
 
 import random
@@ -106,11 +106,15 @@ def courseDelete(request, id):
 
 def upload(request):
     if request.method == "POST":
-        uploaded_image = request.FILES.getlist("images")
-        for image in uploaded_image:
-            handle_uploaded_files(image)
-        return render(request,"courses/success.html")
-    return render(request, "courses/upload.html")
+        form = UploadForm(request.POST,request.FILES)
+
+        if form.is_valid():
+            uploaded_image = request.FILES["image"]
+            handle_uploaded_files(uploaded_image)
+            return render(request,"courses/success.html")
+    else:
+        form = UploadForm()
+    return render(request, "courses/upload.html",{"form":form})
 
 
 def handle_uploaded_files(file):

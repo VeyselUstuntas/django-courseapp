@@ -73,3 +73,10 @@ class CourseEditForm(forms.ModelForm):
 
         }
 
+
+class UploadForm(forms.Form):
+    image = forms.FileField(
+        label="Kurs Görseli",
+        widget=forms.FileInput(attrs={"class":"form-control"}),
+        error_messages={"required":"Lütfen Bir Medya Yükleyin"},
+    )

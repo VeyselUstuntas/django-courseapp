@@ -11,12 +11,27 @@
     <div class="container">
         <div class="row mt-4">
             <div class="col-12">
-                <form action="{% url "upload_image" %}" method="post" enctype="multipart/form-data">
+                <form action="{% url "upload_image" %}" method="post" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
-                    <div class="input-group">
+                    {% for field in form %}
+                        <div class="mb-4 {% if field.errors %}invalid{% endif %}">
+                            {% if field.errors %}
+                                <div class="alert alert-danger">
+                                    Resim Seç!!!
+                                </div>
+                            {% endif %}
+                            <div class="input-group">
+                                {% comment %} {{field.label}} {% endcomment %}
+                                {{field}}
+                                <button class="btn btn-outline-secondary" type="submit">Upload</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% comment %} <div class="input-group">
                         <input type="file" class="form-control" name="images" multiple="true" >
                         <button class="btn btn-outline-secondary" type="submit">Upload</button>
-                      </div>
+                    </div>   {% endcomment %}
                 </form>
             </div>
         </div>
