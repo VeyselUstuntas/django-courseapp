@@ -103,4 +103,10 @@ def courseDelete(request, id):
     
 
 def upload(request):
-    pass
+    if request.method == "POST":
+        uploaded_iamge = request.FILES['image']
+        print(uploaded_iamge.name)
+        print(uploaded_iamge.size)
+        print(uploaded_iamge.content_type)
+        return render(request,"courses/success.html")
+    return render(request, "courses/upload.html")

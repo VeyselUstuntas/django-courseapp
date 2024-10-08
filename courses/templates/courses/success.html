@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "/courses/css/style.css" %}">
+{% endblock css_files %}
+
+{% block title %} Upload Media {% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12">
+                <p>File Uploaded.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block js_script %}
+    <script src="{% static "/courses/js/script.js" %}"></script>
+{% endblock js_script %}
