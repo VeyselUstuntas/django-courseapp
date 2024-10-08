@@ -20,8 +20,10 @@
                         {% if field.errors %}
                             <div class="alert alert-danger">{{field.errors}}</div>
                         {% endif %}
-                        <label class = "form-label" for="{{field.id_for_label}}">{{field.label}}</label>
-                        {{field}}
+                        <p>
+                            <label class = "form-label" for="{{field.id_for_label}}">{{field.label}}</label>
+                            {{field}}
+                        </p>
                     {% endfor %}
                     <button class="btn btn-info btn-sm" type="submit">Save</button>
 

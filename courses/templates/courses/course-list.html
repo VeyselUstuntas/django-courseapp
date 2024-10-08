@@ -27,10 +27,10 @@
                             <td>{{course.title}}</td>
                             <td>{{course.slug}}</td>
                             <td class="align-middle">
-                                <a href="{% url "course_edit" course.id %}" class="btn btn-primary d-flex justify-content-center align-items-center w-50 mx-auto">Edit</a>
+                                <a href="{% url "course_edit" course.id %}" class="btn btn-primary btn-sm w-100 mb-2 mt-2">Edit</a>
+                                <a href="{% url "course_delete" course.id %}" class="btn btn-danger btn-sm w-100 mb-2">Delete</a>
                             </td>
-                            
-                        </tr>
+                        </tr>   
                     {% endfor %}
                     </tbody>
                 </table>

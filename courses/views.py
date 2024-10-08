@@ -90,3 +90,17 @@ def courseEdit(request,id):
     else:
         form = CourseEditForm(instance=course)
     return render(request,"courses/edit-course.html",{"course":course,"form":form})
+
+
+def courseDelete(request, id):
+    course = get_object_or_404(Course,pk=id)
+
+    if request.method == "POST":
+        Course.delete(course)
+        return redirect("course_list")
+    else:
+        return render(request,"courses/course-delete.html",{"course":course})
+    
+
+def upload(request):
+    pass
