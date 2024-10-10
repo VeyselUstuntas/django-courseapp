@@ -3,6 +3,8 @@ from django import forms
 from courses.models import Course
 
 
+# SADE FORM CLASS OLUŞTURMA
+
 # class CourseCreateForm(forms.Form):
 #     title = forms.CharField(
 #         label = "Course Title", 
@@ -24,6 +26,9 @@ from courses.models import Course
 
 #         )
     
+
+
+    #### MODELLER İLE FORM CLASS OLUŞTURMA
 
 class CourseCreateForm(forms.ModelForm):
     class Meta:
