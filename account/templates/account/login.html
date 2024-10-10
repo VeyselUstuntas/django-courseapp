@@ -1,1 +1,42 @@
-login
+{% extends "layout.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "/account/css/style.css" %}">
+{% endblock css_files %}
+
+{% block title %} Login {% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="h1">Login</div>
+                <hr>
+                <form action="{% url "user_login" %}" method="post" novalidate>
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{error}}
+                        </div>
+                    {% endif %}
+                    {% for field in form %}
+                        <div class="{% if field.errors %}invalid{% endif %} mb-4">
+                            {% if field.errors %}
+                                <div class="alert alert-danger">{{field.errors}}</div>
+                            {% endif %}
+                            <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-info">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block js_script %}
+    <script src="{% static "/account/js/script.js" %}"></script>
+{% endblock js_script %}
