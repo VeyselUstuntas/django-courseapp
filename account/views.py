@@ -10,4 +10,4 @@ def user_register(request):
 
 
 def user_logout(register):
-    return redirect("index")
+    return redirect("courses")

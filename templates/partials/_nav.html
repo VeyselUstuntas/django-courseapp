@@ -2,23 +2,44 @@
     <div class="container">
         <a href="{% url "courses" %}" class="navbar-brand">Course App</a>
 
-        <ul class="navbar-nav me-auto"> <!---- me-auto kendini sağdan sola al demek-->
-            <li class="nav-item">
-                <a href="{% url "courses" %}" class="nav-link">Courses</a>
-            </li>
 
-            <li class="nav-item">
-                <a href="{% url "create_course" %}" class="nav-link">Admin Create Course</a>
-            </li>
-
-            <li>
-                <a href="{% url "course_list" %}" class="nav-link">Admin Course List</a>
-            </li>
-        </ul> 
-        
-        <form action="{% url "search" %}" method="GET" class="d-flex">
-            <input class="form-control me-2" name="q" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </form>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav me-auto"> <!---- me-auto kendini sağdan sola al demek-->
+                <li class="nav-item">
+                    <a href="{% url "courses" %}" class="nav-link">Courses</a>
+                </li>
+    
+                <li class="nav-item">
+                    <a href="{% url "create_course" %}" class="nav-link">Admin Create Course</a>
+                </li>
+    
+                <li>
+                    <a href="{% url "course_list" %}" class="nav-link">Admin Course List</a>
+                </li>
+            </ul> 
+    
+            <ul class="navbar-nav me-0"> <!---- me-auto kendini sağdan sola al demek-->
+                <li class="nav-item">
+                    <a href="{% url "user_login" %}" class="nav-link">Login</a>
+                </li>
+    
+                <li class="nav-item">
+                    <a href="{% url "user_register" %}" class="nav-link">Register</a>
+                </li>
+    
+                <li class="nav-item">
+                    <a href="{% url "user_logout" %}" class="nav-link">Logout</a>
+                </li>
+      
+            </ul> 
+            
+            <form action="{% url "search" %}" method="GET" class="d-flex">
+                <input class="form-control me-2" name="q" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
     </div>
 </nav>
