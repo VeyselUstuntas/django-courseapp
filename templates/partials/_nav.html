@@ -21,19 +21,23 @@
                 </li>
             </ul> 
     
-            <ul class="navbar-nav me-0"> <!---- me-auto kendini sağdan sola al demek-->
-                <li class="nav-item">
-                    <a href="{% url "user_login" %}" class="nav-link">Login</a>
-                </li>
-    
-                <li class="nav-item">
-                    <a href="{% url "user_register" %}" class="nav-link">Register</a>
-                </li>
-    
-                <li class="nav-item">
-                    <a href="{% url "user_logout" %}" class="nav-link">Logout</a>
-                </li>
-      
+            <ul class="navbar-nav me-1"> 
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link">Welcome, {{user.username|title}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url "user_logout" %}" class="nav-link">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{% url "user_login" %}" class="nav-link">Login</a>
+                    </li>
+        
+                    <li class="nav-item">
+                        <a href="{% url "user_register" %}" class="nav-link">Register</a>
+                    </li>
+                {% endif %}
             </ul> 
             
             <form action="{% url "search" %}" method="GET" class="d-flex">
