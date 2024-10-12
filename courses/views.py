@@ -80,8 +80,8 @@ def courseList(request):
         "courses":courses,
     })
 
-def courseEdit(request,id):
-    course = Course.objects.get(id=id)
+def courseEdit(request,slug):
+    course = Course.objects.get(slug=slug)
     if request.method == "POST":
         form = CourseEditForm(request.POST,request.FILES, instance=course)
 
@@ -94,8 +94,8 @@ def courseEdit(request,id):
     return render(request,"courses/edit-course.html",{"course":course,"form":form})
 
 
-def courseDelete(request, id):
-    course = get_object_or_404(Course,pk=id)
+def courseDelete(request, slug):
+    course = get_object_or_404(Course,slug=slug)
 
     if request.method == "POST":
         Course.delete(course)

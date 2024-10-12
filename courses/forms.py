@@ -33,34 +33,14 @@ from courses.models import Course
 class CourseCreateForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ["title","description","image"]
-        labels = {
-            "title":"Kurs Başlığı:",
-            "description":"Kurs Açıklaması:",
-            "image":"Kurs Görseli:",
-        }
-        widgets = {
-            "title":forms.TextInput(attrs={"class":"form-control"}),
-            "description":forms.Textarea(attrs={"class":"form-control"}),
-        }
-        error_messages = {
-            "title":{"required":"Kurs Başlığını Giriniz!", "max_length":"Geçtin sınırı"},
-            "description":{"required":"Kurs Açıklamasını Giriniz!"},
-            "image":{"required":"Kurs Görselini Seçiniz!"}
-
-        }
-
-class CourseEditForm(forms.ModelForm):
-    class Meta:
-        model = Course
         fields = "__all__"
         labels = {
-            "title":"Kurs Başlığı:",
-            "description":"Kurs Açıklaması:",
-            "image":"Kurs Görseli:",
-            "isActive":"Aktif Mi?",
-            "isHome":"Ana Sayfada Mı?",
-            "categories":"Kurs Katgorisi"
+            "title":"Course  Name",
+            "description":"Description",
+            "image":"Course Image",
+            "isActive":"Is the Course Active?",
+            "isHome":"Will the Course Appear on the Homepage?",
+            "categories":"Categories"
         }
         widgets = {
             "title":forms.TextInput(attrs={"class":"form-control"}),
@@ -70,9 +50,34 @@ class CourseEditForm(forms.ModelForm):
             "categories":forms.SelectMultiple(attrs={"class":"form-control"}),
         }
         error_messages = {
-            "title":{"required":"Kurs Başlığını Giriniz!", "max_length":"Geçtin sınırı"},
-            "description":{"required":"Kurs Açıklamasını Giriniz!"},
-            "image":{"required":"Kurs Görselini Seçiniz!"}
+            "title":{"required":"Enter Course Title!", "max_length":"Geçtin sınırı"},
+            "description":{"required":"Enter Course Description!"},
+            "image":{"required":"Select Course Image!"},
+        }
+
+class CourseEditForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = "__all__"
+        labels = {
+            "title":"Course  Name",
+            "description":"Description",
+            "image":"Course Image",
+            "isActive":"Is the Course Active?",
+            "isHome":"Will the Course Appear on the Homepage?",
+            "categories":"Categories"
+        }
+        widgets = {
+            "title":forms.TextInput(attrs={"class":"form-control"}),
+            "description":forms.Textarea(attrs={"class":"form-control"}),
+            "isActive":forms.CheckboxInput(),
+            "isHome":forms.CheckboxInput(),
+            "categories":forms.SelectMultiple(attrs={"class":"form-control"}),
+        }
+        error_messages = {
+            "title":{"required":"Enter Course Title!", "max_length":"Geçtin sınırı"},
+            "description":{"required":"Enter Course Description!"},
+            "image":{"required":"Select Course Image!"}
 
         }
 

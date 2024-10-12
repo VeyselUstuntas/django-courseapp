@@ -13,7 +13,7 @@
             <div class="col-12">
                 <p>
                     Do you want to delete the course named <strong>{{course.title}}</strong>?
-                    <form action="{% url "course_delete" course.id %}"  method="POST">
+                    <form action="{% url "course_delete" course.slug %}"  method="POST">
                         {% csrf_token %}
 
                         <button type="submit" class="btn btn-danger">Yes!</button>

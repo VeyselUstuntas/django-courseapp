@@ -37,7 +37,7 @@ def user_register(request):
                 return render(request,"account/register.html",{"form":form,"error":"User Account Available with Entered Username/Email"})
 
             if password == repassword:
-                user = User.objects.create_user(username=username,email=email,password=password,is_staff=False, is_active=True, is_superuser=False)
+                user = User.objects.create_user(username=username,email=email,password=password,is_staff=True, is_active=True, is_superuser=True)
                 user.save()
             else:
                 form = AccountRegisterForm(initial={"username":username,"email":email})
