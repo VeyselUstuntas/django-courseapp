@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponse, HttpResponseNotFound, HttpRespons
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required,user_passes_test
 
 from courses.forms import CourseCreateForm, CourseEditForm, UploadForm
 from courses.models import Category, Course, UploadModel
@@ -17,6 +18,45 @@ def index(request):
         "courses":courses,
         "categories":category
     })
+
+
+def isAdmin(user):
+    return user.is_superuser
+
+@user_passes_test(isAdmin)
+def createCourse(request):
+    if request.method == "POST":
+        form = CourseCreateForm(request.POST,request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect("courses")
+    else:
+        form = CourseCreateForm()
+    return render(request,"courses/create-course.html",{"form":form})
+
+
+@user_passes_test(isAdmin)
+def courseList(request):
+    courses = Course.objects.all()
+    return render(request,"courses/course-list.html",{
+        "courses":courses,
+    })
+
+
+def courseEdit(request,slug):
+    course = Course.objects.get(slug=slug)
+    if request.method == "POST":
+        form = CourseEditForm(request.POST,request.FILES, instance=course)
+
+        if form.is_valid():
+            form.save()
+            return redirect("course_list")
+
+    else:
+        form = CourseEditForm(instance=course)
+    return render(request,"courses/edit-course.html",{"course":course,"form":form})
+
 
 def search(request):
     if "q" in request.GET and request.GET["q"] != "":
@@ -62,36 +102,10 @@ def getCoursesByCategoryName(request,slug):
     })
 
 
-def createCourse(request):
-    if request.method == "POST":
-        form = CourseCreateForm(request.POST,request.FILES)
-
-        if form.is_valid():
-            form.save()
-            return redirect("courses")
-    else:
-        form = CourseCreateForm()
-    return render(request,"courses/create-course.html",{"form":form})
 
 
-def courseList(request):
-    courses = Course.objects.all()
-    return render(request,"courses/course-list.html",{
-        "courses":courses,
-    })
 
-def courseEdit(request,slug):
-    course = Course.objects.get(slug=slug)
-    if request.method == "POST":
-        form = CourseEditForm(request.POST,request.FILES, instance=course)
 
-        if form.is_valid():
-            form.save()
-            return redirect("course_list")
-
-    else:
-        form = CourseEditForm(instance=course)
-    return render(request,"courses/edit-course.html",{"course":course,"form":form})
 
 
 def courseDelete(request, slug):

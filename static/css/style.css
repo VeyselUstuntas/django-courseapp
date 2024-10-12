@@ -1,0 +1,13 @@
+.nav-link.active {
+    background-color: #AEEEEE; /* Arka plan rengi */
+    font-weight: bold; /* Kalın yazı */
+    border-radius: 0.25rem; /* Kenar yuvarlama */
+    padding: 10px 15px; /* Kenar boşlukları */
+}
+
+.nav-link.active-user {
+    background-color: #B0C4DE; /* Arka plan rengi */
+    font-weight: bold; /* Kalın yazı */
+    border-radius: 0.25rem; /* Kenar yuvarlama */
+    padding: 10px 15px; /* Kenar boşlukları */
+}

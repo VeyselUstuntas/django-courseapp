@@ -15,6 +15,7 @@
                 <hr>
                 <form action="{% url "user_login" %}" method="post" novalidate>
                     {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
                     {% if error %}
                         <div class="alert alert-danger">
                             {{error}}

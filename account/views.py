@@ -8,9 +8,14 @@ from django.db.models import Q
 def user_login(request):
     form = AccountLoginForm()
 
+    if request.user.is_authenticated and "next" in request.GET:
+        return render(request,"account/login.html",{"form":form,"error":"Yetkiniz Yok!"})
+    elif request.user.is_authenticated:
+        return redirect("courses")
+
     if request.method == "POST":
         form = AccountLoginForm(request.POST)
-
+        next_url = request.POST.get("next", None)  # POST'dan next parametresini alıyoruz
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
@@ -18,6 +23,8 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                if next_url:
+                    return redirect(next_url)
                 return redirect("courses")
             return render(request,"account/login.html",{"form":form,"error":"Username or Password Incorrect"})
         
