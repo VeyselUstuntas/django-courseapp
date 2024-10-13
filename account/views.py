@@ -1,10 +1,9 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from account.forms import AccountLoginForm, AccountRegisterForm, LoginUserForm
+from account.forms import AccountLoginForm, AccountRegisterForm, LoginUserForm, RegisterUserForm
 from django.db.models import Q
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
 
 
 def user_login(request):
@@ -39,29 +38,20 @@ def user_login(request):
 
 def user_register(request):
     if request.method == "POST":
-        form = AccountRegisterForm(request.POST)
+        form = RegisterUserForm(request.POST)
+       
         if form.is_valid():
-            username = form.cleaned_data.get("username")
-            email = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password")
-            repassword = form.cleaned_data.get("repassword")
-            if User.objects.filter(Q(username=username) | Q(email=email)).exists(): # kullanıcı varlığı sorgulama
-                form = AccountRegisterForm(initial={"username":username,"email":email})
-                messages.add_message(request,messages.ERROR,"User Account Available with Entered Username/Email")
-                return render(request,"account/register.html",{"form":form,})
-
-            if password == repassword:
-                user = User.objects.create_user(username=username,email=email,password=password,is_staff=True, is_active=True, is_superuser=True)
-                user.save()
-                messages.add_message(request,messages.WARNING,"Hesap Oluşturuldu Giriş Yapabilirsiniz.")
-            else:
-                form = AccountRegisterForm(initial={"username":username,"email":email})
-                messages.add_message(request,messages.ERROR,"Passwords Do Not Match" )
-                return render(request,"account/register.html",{"form":form})
-            return redirect("user_login")
+           form.save()
+           username = form.cleaned_data.get("username")
+           password = form.cleaned_data.get("password1")
+           user = authenticate(request, username=username, password = password,is_active=True)
+           login(request,user)
+           return redirect("courses")
+        else:
+            return render(request, "account/register.html",{"form":form})
     else:
-        form = AccountRegisterForm()
-    return render(request,"account/register.html",{"form":form})
+        form = RegisterUserForm()
+        return render(request,"account/register.html",{"form":form})
 
 
 def user_logout(request):
