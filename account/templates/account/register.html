@@ -15,20 +15,8 @@
                 <hr>
                 <form action="{% url "user_register" %}" method="post" novalidate>
                     {% csrf_token %}
-                    {% if error %}
-                        <div class="alert alert-danger">
-                            {{error}}
-                        </div>
-                    {% endif %}
-                    {% for field in form %}
-                        <div class="{% if field.errors %}invalid{% endif %} mb-4">
-                            {% if field.errors %}
-                                <div class="alert alert-danger">{{field.errors}}</div>
-                            {% endif %}
-                            <label for="{{field.id_for_label}}" class="form-label">{{field.label}}</label>
-                            {{field}}
-                        </div>
-                    {% endfor %}
+
+                    {% include "partials/_form.html" %}
                     <button type="submit" class="btn btn-info">Register</button>
                 </form>
             </div>
