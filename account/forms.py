@@ -49,8 +49,6 @@ class LoginUserForm(AuthenticationForm):
         if user.username.startswith("v"):
             raise forms.ValidationError("Bu kullanıcı adi ile login olamazsınız")
     
-    def get_invalid_login_error(self):
-        return forms.ValidationError("Hesabınız Inaktif Admin'e Başvurun")
 
 
 ###--- REGISTER

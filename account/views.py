@@ -1,17 +1,20 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.models import User
 from account.forms import AccountLoginForm, AccountRegisterForm, LoginUserForm, RegisterUserForm
 from django.db.models import Q
 from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
 
 
 def user_login(request):
     # form = AccountLoginForm()
     form = LoginUserForm()
     if request.user.is_authenticated and "next" in request.GET:
-        return render(request,"account/login.html",{"form":form,"error":"Yetkiniz Yok!"})
-    elif request.user.is_authenticated:
+        messages.add_message(request, messages.ERROR, "Yetkiniz Yok!!!")
+        return render(request,"account/login.html",{"form":form})
+    elif request.user.is_authenticated and request.method == "GET":
         return redirect("courses")
 
     if request.method == "POST":
@@ -53,6 +56,18 @@ def user_register(request):
         form = RegisterUserForm()
         return render(request,"account/register.html",{"form":form})
 
+def change_password(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request,form.user)
+            messages.add_message(request,messages.SUCCESS,"Şifre Değişikliği Başarılı")
+            return redirect("change_password")
+        else:
+            return render(request, "account/change-password.html",{"form":form})
+    form = PasswordChangeForm(None)
+    return render(request, "account/change-password.html",{"form":form})
 
 def user_logout(request):
     logout(request)
