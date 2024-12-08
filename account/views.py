@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout,update_session_auth_hash
 from django.contrib.auth.models import User
-from account.forms import AccountLoginForm, AccountRegisterForm, LoginUserForm, RegisterUserForm
+from account.forms import AccountLoginForm, AccountRegisterForm, AuthenticationPasswordChangeForm, ChangePasswordForm, LoginUserForm, RegisterUserForm
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
@@ -56,9 +56,11 @@ def user_register(request):
         form = RegisterUserForm()
         return render(request,"account/register.html",{"form":form})
 
+
 def change_password(request):
     if request.method == "POST":
-        form = PasswordChangeForm(user=request.user, data=request.POST)
+        # form = AuthenticationPasswordChangeForm(user = request.user, data = request.POST) # kenmdi yazdığım form 
+        form = ChangePasswordForm(user=request.user, data=request.POST) #djangonun kendi formu
         if form.is_valid():
             form.save()
             update_session_auth_hash(request,form.user)
@@ -66,7 +68,8 @@ def change_password(request):
             return redirect("change_password")
         else:
             return render(request, "account/change-password.html",{"form":form})
-    form = PasswordChangeForm(None)
+    form = ChangePasswordForm(user=request.user)
+    # form = AuthenticationPasswordChangeForm(user=request.user)
     return render(request, "account/change-password.html",{"form":form})
 
 def user_logout(request):
